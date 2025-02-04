@@ -47,14 +47,14 @@ const SortFilter = ({
   };
 
   return (
-    <div className='bg-orange-100'>
-      <div className='p-4 container mx-auto flex items-center space-x-4 justify-between'>
+    <div className='bg-orange-100 p-4'>
+      <div className='container mx-auto flex flex-col md:flex-row items-center gap-4 md:justify-between'>
         {/* Sorting */}
-        <div className='flex items-center gap-4'>
+        <div className='flex flex-wrap items-center gap-4 w-full md:w-auto justify-center'>
           <div className='flex items-center'>
-            <BsFilterSquare className='mr-4 text-4xl' />
+            <BsFilterSquare className='mr-2 text-2xl md:text-4xl' />
             <select
-              className='p-2 w-24 bg-transparent'
+              className='p-2 w-24 bg-transparent '
               value={selectedCategory}
               onChange={handleCategoryChange}>
               <option value=''>Filter</option>
@@ -66,24 +66,27 @@ const SortFilter = ({
             </select>
           </div>
           <div>
-            <FaGripHorizontal />
+            <FaGripHorizontal className='text-xl' />
           </div>
           <div>
-            <AiOutlinePicCenter />
+            <AiOutlinePicCenter className='text-xl' />
           </div>
           <div>|</div>
-          <div>{`Showing 1–${limit || 16} of ${productsTotal} results`}</div>
+          <div className='text-sm text-center'>{`Showing 1–${
+            limit || 16
+          } of ${productsTotal} results`}</div>
         </div>
 
         {/* Category Filter */}
-        <div className='flex items-center gap-4'>
+        <div className='flex flex-wrap items-center gap-4 w-full md:w-auto justify-center'>
           {/* Limit Selection */}
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-2'>
             <label className='block text-sm font-medium'>Show:</label>
             <select
-              className='p-2 border'
+              className='p-2 border rounded'
               value={limit}
               onChange={handleLimitChange}>
+              <option value=''>Show</option>
               <option value='2'>2</option>
               <option value='4'>4</option>
               <option value='8'>8</option>
@@ -95,10 +98,10 @@ const SortFilter = ({
           </div>
 
           {/* Sort Selection */}
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-2'>
             <label className='block text-sm font-medium'>Sort By:</label>
             <select
-              className='w-24 p-2'
+              className='w-34 p-2 border rounded'
               value={sortBy}
               onChange={handleSortByChange}>
               <option value=''>Sort By</option>

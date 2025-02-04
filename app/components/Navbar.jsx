@@ -96,19 +96,19 @@ const Navbar = () => {
             )}
           </div>
           <div className='flex items-center gap-4'>
-            <FaUserMinus className='text-4xl' />
+            <FaUserMinus className='text-3xl' />
             <button
               type='button'
               onClick={() => setIsSearchOpen((prev) => !prev)}>
-              <IoSearchOutline className='text-4xl' />
+              <IoSearchOutline className='text-3xl' />
             </button>
-            <CiHeart className='text-4xl' />
+            <CiHeart className='text-3xl' />
             <div
               className='relative'
               onMouseEnter={
                 cartItems?.length > 0 ? () => setIsCartOpen(true) : undefined
               }>
-              <MdOutlineShoppingCart className='text-4xl cursor-pointer' />
+              <MdOutlineShoppingCart className='text-3xl cursor-pointer' />
               {cartItems?.length > 0 && (
                 <span className='absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-2'>
                   {cartItems?.length}
@@ -155,7 +155,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className='absolute h-full right-0 w-92 bg-white shadow-lg py-4 px-8 z-50'>
+            className='absolute h-full right-0 w-[380px] bg-white shadow-lg py-4 px-8 z-50'>
             <div className='flex justify-between items-center'>
               <h2 className='text-2xl font-bold border-b py-4'>
                 Shopping Cart
@@ -165,7 +165,7 @@ const Navbar = () => {
             {error && <p className='text-red-500 text-sm'>{error}</p>}
 
             {cartItems.length > 0 ? (
-              <ul className='h-9/10 overflow-y-auto'>
+              <ul className='h-9/10 overflow-y-auto min-w-sm'>
                 {cartItems.map((item) => (
                   <li
                     key={item.productId}
@@ -179,10 +179,11 @@ const Navbar = () => {
                       src={item.image}
                       alt={item.title}
                       width={80}
+                      a
                       height={80}
                       className='rounded'
                     />
-                    <div className='flex-grow'>
+                    <div className='flex-grow  min-w-sm'>
                       <p className='text-sm font-medium'>{item.title}</p>
                       <p className='text-xs text-gray-700 mt-2'>
                         {item.quantity} <span className='italic'>X</span>{" "}

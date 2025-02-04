@@ -81,40 +81,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // const markAsOutofStock = async (id) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch(`/api/products/${id}`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         outOfStock: tr,
-  //       }),
-  //     });
-
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       throw new Error(
-  //         `HTTP error! status: ${response.status}, message: ${
-  //           errorData.message || response.statusText
-  //         }`
-  //       );
-  //     }
-
-  //     const data = await response.json();
-  //     setCartItems(data.items);
-  //     setCartId(data._id);
-  //     setCartTotal(data.totalPrice);
-  //   } catch (error) {
-  //     console.error("Error adding to cart:", error);
-  //     setMessage(error.message || "Error adding to cart. Please try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const deleteItem = async (id) => {
     setLoading(true);
     try {
