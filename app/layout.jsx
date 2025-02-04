@@ -1,0 +1,23 @@
+/** @format */
+
+import "./globals.css";
+import Footer from "@/app/components/Footer";
+import Navbar from "@/app/components/Navbar";
+import { CartProvider } from "./Context/CartContext";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({ subsets: ["latin"], weight: "400" });
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang='en'>
+      <body className={poppins.className}>
+        <CartProvider>
+          <Navbar />
+          {children}
+        </CartProvider>
+        <Footer />
+      </body>
+    </html>
+  );
+}

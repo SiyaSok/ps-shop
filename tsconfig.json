@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/**/*",
+    "types/**/*",
+    "app/(pages)/cart/layout.jsx",
+    "app/layout.jsx",
+    "app/page.jsx",
+    "app/components/SortFilter.jsx",
+    "app/components/Range.jsx",
+    "app/components/Products.jsx",
+    "app/components/PageHero.jsx",
+    "app/components/OurProducts.jsx",
+    "app/components/Hero.jsx",
+    "app/components/Heading.jsx",
+    "app/components/Footer.jsx",
+    "app/components/Cart.jsx",
+    "app/components/Navbar.jsx",
+    "app/Context/CartContext.jsx",
+    "app/Context/CartContext.jsx",
+    "app/(pages)/products/page.jsx",
+    "app/(pages)/products/layout.jsx",
+    "app/(pages)/products/category/page.jsx",
+    "app/(pages)/products/category/[id]/page.jsx",
+    "app/(pages)/products/[id]/page.jsx",
+    "app/(pages)/products/[id]/layout.jsx",
+    "app/(pages)/login/page.jsx",
+    "app/(pages)/cart/page.jsx"
+  ],
+  "exclude": ["node_modules"]
+}
