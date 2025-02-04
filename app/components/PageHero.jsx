@@ -27,7 +27,7 @@ const PageHero = () => {
 
   const sentenceCasePath = toSentenceCase(
     pathname.startsWith("/") ? pathname.substring(1) : pathname
-  ); // Remove leading slash first
+  );
 
   return (
     <section

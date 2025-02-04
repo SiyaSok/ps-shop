@@ -6,7 +6,7 @@ import axios from "axios";
 async function getProducts() {
   try {
     const response = await axios.get(
-      "http://localhost:3000/api/cart?userId=679db65928ba7710611593d9"
+      "api/cart?userId=679d0854631f81325321d575"
     );
     console.log(response.data);
     return response.data.items ?? [];

@@ -13,7 +13,7 @@ const Range = () => {
         {/* 3-column grid */}
         {/* Bedroom Column */}
         <div className='bg-white rounded-lg text-center overflow-hidden relative'>
-          <Link href={`products?679cff65631f81325321d555`}>
+          <Link href={`products`}>
             <Image
               src={Dining.src}
               alt='Dining'
@@ -28,7 +28,7 @@ const Range = () => {
         </div>
         {/* Living Room Column */}
         <div className='bg-white rounded-lg text-center overflow-hidden relative'>
-          <Link href={`products?679cff78631f81325321d557`}>
+          <Link href={`products`}>
             <Image
               src={Living.src}
               alt='Living'
@@ -43,7 +43,7 @@ const Range = () => {
         </div>
         {/* Dining Room Column */}
         <div className='bg-white rounded-lg text-center overflow-hidden relative'>
-          <Link href={`products?679cff65631f81325321d555`}>
+          <Link href={`products`}>
             <Image
               src={Bedroom}
               alt='Bedroom'
