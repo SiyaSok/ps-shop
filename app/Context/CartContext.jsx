@@ -25,9 +25,7 @@ export const CartProvider = ({ children }) => {
   const fetchCart = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/cart?userId=${userId}`
-      );
+      const response = await axios.get(`/api/cart?userId=${userId}`);
 
       if (response.data && response.data.items) {
         setCartItems(response.data.items);

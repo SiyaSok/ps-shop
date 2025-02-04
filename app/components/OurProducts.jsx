@@ -25,9 +25,7 @@ const OurProducts = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/products?limit=8"
-        );
+        const response = await axios.get("/api/products?limit=8");
         setProducts(response.data);
       } catch (err) {
         setError(err.message); // Set the error message
