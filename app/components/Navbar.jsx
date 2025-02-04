@@ -21,6 +21,7 @@ const Navbar = () => {
   const searchInputRef = useRef();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [deletingItemId, setDeletingItemId] = useState(false);
+
   const [error, setError] = useState("");
 
   const router = useRouter();
@@ -39,6 +40,7 @@ const Navbar = () => {
   const submitSearch = (event) => {
     event.preventDefault();
     if (!searchTerm.trim()) return;
+    setIsSearchOpen(false);
     router.push(`/search?Keywords=${encodeURIComponent(searchTerm)}`);
   };
 
@@ -62,20 +64,24 @@ const Navbar = () => {
           </Link>
 
           <div className='hidden md:flex space-x-4'>
-            {["Home", "Products", "About", "Contact"].map((name) => {
-              const path =
-                name.toLowerCase() === "home" ? "/" : `/${name.toLowerCase()}`;
-              return (
-                <Link
-                  key={name}
-                  href={path}
-                  className={`${
-                    pathname === path ? "bg-black text-white" : ""
-                  } text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
-                  {name}
-                </Link>
-              );
-            })}
+            {["Home", "Products", "About", "Contact", "OutofStock"].map(
+              (name) => {
+                const path =
+                  name.toLowerCase() === "home"
+                    ? "/"
+                    : `/${name.toLowerCase()}`;
+                return (
+                  <Link
+                    key={name}
+                    href={path}
+                    className={`${
+                      pathname === path ? "bg-black text-white" : ""
+                    } text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
+                    {name}
+                  </Link>
+                );
+              }
+            )}
             {isRegister && (
               <div>
                 <Link
@@ -100,12 +106,12 @@ const Navbar = () => {
             <div
               className='relative'
               onMouseEnter={
-                cartItems.length > 0 ? () => setIsCartOpen(true) : undefined
+                cartItems?.length > 0 ? () => setIsCartOpen(true) : undefined
               }>
               <MdOutlineShoppingCart className='text-4xl cursor-pointer' />
-              {cartItems.length > 0 && (
+              {cartItems?.length > 0 && (
                 <span className='absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-2'>
-                  {cartItems.length}
+                  {cartItems?.length}
                 </span>
               )}
             </div>
