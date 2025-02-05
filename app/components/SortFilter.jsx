@@ -10,9 +10,9 @@ const SortFilter = ({
   onLimitChange,
   onSortChange,
   onCategoryChange,
-  selectedCategory,
   limit,
   productsTotal,
+  filteredCategory,
 }) => {
   const [categories, setCategories] = useState([]);
   const [sortBy, setSortBy] = useState("");
@@ -55,7 +55,7 @@ const SortFilter = ({
             <BsFilterSquare className='mr-2 text-2xl md:text-4xl' />
             <select
               className='p-2 w-24 bg-transparent '
-              value={selectedCategory}
+              value={filteredCategory}
               onChange={handleCategoryChange}>
               <option value=''>Filter</option>
               {categories.map((category) => (

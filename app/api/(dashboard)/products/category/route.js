@@ -49,6 +49,7 @@ export const GET = async (request) => {
 export const POST = async (request) => {
   try {
     const { searchParams } = new URL(request.url);
+    // const userId = searchParams.get("userId");
     const categoryId = searchParams.get("categoryId");
 
     const body = await request.json();

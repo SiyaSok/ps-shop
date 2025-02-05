@@ -14,15 +14,7 @@ const Page = () => {
   const [limit, setLimit] = useState();
   const [filteredCategory, setFilteredCategory] = useState();
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [sortOrder, setSortOrder] = useState();
-
-  // const searchParams = useSearchParams();
-
-  // const newSearchParams = new URLSearchParams(searchParams);
-  // newSearchParams.forEach((value, key) => {
-  //   newSearchParams.set(key, value.replace("=", ""));
-  // });
-  // let cat = newSearchParams.toString().replace("=", "");
+  const [sortOrder, setSortOrder] = useState(1);
 
   function simplifyProduct(product) {
     return {
@@ -86,6 +78,7 @@ const Page = () => {
         selectedCategory={selectedCategory}
         limit={limit}
         productsTotal={productsTotal}
+        filteredCategory={filteredCategory}
       />
       <Product products={simplifiedProducts} />
     </>
