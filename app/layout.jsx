@@ -6,8 +6,10 @@ import Navbar from "@/app/components/Navbar";
 import { CartProvider } from "./Context/CartContext";
 import { Poppins } from "next/font/google";
 
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
-
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
