@@ -7,9 +7,7 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
   try {
     await connect();
-
     const category = await Category.find();
-
     return new NextResponse(JSON.stringify(category), { status: 200 });
   } catch (error) {
     const errorMessage =
@@ -24,7 +22,6 @@ export const POST = async (request) => {
   try {
     const body = await request.json();
     const { title } = body;
-
     if (!title) {
       return new NextResponse(
         JSON.stringify({ message: "Title is required" }),
@@ -35,7 +32,6 @@ export const POST = async (request) => {
     }
 
     await connect();
-
     const category = await Category.findOne({
       title: { $regex: `^${title}$`, $options: "i" },
     });

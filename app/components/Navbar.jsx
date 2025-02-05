@@ -27,7 +27,7 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { cartItems, fetchCart, deleteItem, cartTotal, isRegister } = useCart();
+  const { cartItems, fetchCart, deleteItem, isRegister } = useCart();
 
   useEffect(() => {
     fetchCart();
@@ -53,6 +53,10 @@ const Navbar = () => {
     } finally {
       setDeletingItemId(null);
     }
+  };
+
+  const calculateTotal = () => {
+    return cartItems.reduce((total, product) => total + product.price, 0);
   };
 
   return (
@@ -207,26 +211,23 @@ const Navbar = () => {
               <div className='flex text-black w-full gap-2 items-center  mt-2 w-full py-8 px-6 border-b'>
                 <div className='flex gap-1 items-center w-1/2'>Subtotal</div>
                 <div className='flex gap-1 items-center w-1/2 text-yellow-700'>
-                  R {cartTotal?.toFixed(2)}
+                  R {calculateTotal()?.toFixed(2)}
                 </div>
               </div>
               <div className='flex text-white w-full gap-2 items-center justify-evenly mt-2 w-full py-4'>
                 <div className='flex gap-1 items-center'>
                   <button className='text-black border border-black rounded-full px-4 py-2 hover:bg-black hover:text-white  w-full'>
-                    <Link href='/cart' />
-                    Cart
+                    <Link href='/cart'>Cart</Link>
                   </button>
                 </div>
                 <div className='flex gap-1 items-center'>
                   <button className='text-black border border-black rounded-full px-4 py-2  hover:bg-black hover:text-white  w-full'>
-                    <Link href='/cart' />
-                    Compare
+                    <Link href='/cart'>Compare</Link>
                   </button>
                 </div>
                 <div className='flex gap-1 items-center'>
                   <button className='text-black border border-black rounded-full px-4 py-2  hover:bg-black hover:text-white  w-full'>
-                    <Link href='/cart' />
-                    checkout
+                    <Link href='/cart'>checkout</Link>
                   </button>
                 </div>
               </div>

@@ -6,6 +6,12 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+/**
+ * POST request handler for user login.
+ *
+ * @param {Request} request The incoming request object.
+ * @returns {NextResponse} A response object containing the JWT token and user information, or an error.
+ */
 export const POST = async (request) => {
   try {
     const body = await request.json();
@@ -13,44 +19,43 @@ export const POST = async (request) => {
 
     await connect();
 
-    // Find user by username
     const user = await User.findOne({ username });
     if (!user) {
-      return new NextResponse("User not found", { status: 404 });
+      return new NextResponse({ message: "User not found" }, { status: 404 }); // Consistent JSON response
     }
 
-    // Compare password with hashed password in the database
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return new NextResponse("Invalid password", { status: 401 });
+      return new NextResponse({ message: "Invalid password" }, { status: 401 }); // Consistent JSON response
     }
 
-    // Verify JWT_SECRET is defined
     const secret = process.env.JWT_SECRET;
-    if (!secret)
-      throw new Error("JWT secret is not defined in environment variables");
+    if (!secret) {
+      console.error("JWT secret is not defined in environment variables"); // Log the error for debugging
+      return new NextResponse(
+        { message: "JWT secret is missing" },
+        { status: 500 }
+      ); // Return a 500 error to the client
+    }
 
-    // Generate a JWT token
     const token = jwt.sign(
       { userId: user._id, username: user.username },
       secret,
       { expiresIn: "1h" }
     );
 
-    // Send the user data and token in the response
     return new NextResponse(
-      JSON.stringify({
+      {
         token,
         user: { id: user._id, username: user.username },
-      }),
+      },
       { status: 200 }
-    );
+    ); // No need to stringify
   } catch (error) {
-    if (error instanceof Error) {
-      return new NextResponse(`Error in fetching users: ${error.message}`, {
-        status: 500,
-      });
-    }
-    return new NextResponse("An unknown error occurred", { status: 500 });
+    console.error("Error during login:", error); // Log the error with context
+    return new NextResponse(
+      { message: "An error occurred during login" },
+      { status: 500 }
+    ); // Consistent JSON response
   }
 };
