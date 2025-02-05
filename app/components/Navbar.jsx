@@ -21,6 +21,7 @@ const Navbar = () => {
   const searchInputRef = useRef();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [deletingItemId, setDeletingItemId] = useState(false);
+  const [isMoblieMenuOpen, setIsMoblieMenuOpen] = useState(false);
 
   const [error, setError] = useState("");
 
@@ -60,9 +61,36 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='bg-white border-b border-grey'>
+    <nav className='bg-white border-b border-grey relative'>
       <div className='mx-auto container px-2 sm:px-6 lg:px-8'>
         <div className='relative flex h-20 items-center justify-between'>
+          <div className=' inset-y-0 right-0 flex items-center md:hidden'>
+            {/* <!-- Mobile menu button--> */}
+            <button
+              type='button'
+              id='mobile-dropdown-button'
+              className='relative inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-black
+               hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
+              aria-controls='mobile-menu'
+              aria-expanded='false'
+              onClick={() => setIsMoblieMenuOpen((prev) => !prev)}>
+              <span className='absolute -inset-0.5'></span>
+              <span className='sr-only'>Open main menu</span>
+              <svg
+                className='block h-6 w-6'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth='1.5'
+                stroke='currentColor'
+                aria-hidden='true'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+                />
+              </svg>
+            </button>
+          </div>
           <Link className='flex items-center' href='/'>
             <Image className='h-10 w-auto' src={logo} alt='PropertyPulse' />
           </Link>
@@ -99,14 +127,14 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <div className='flex items-center gap-4'>
-            <FaUserMinus className='text-3xl' />
+          <div className='flex items-center gap-4 '>
+            <FaUserMinus className='text-3xl hidden md:flex' />
             <button
               type='button'
               onClick={() => setIsSearchOpen((prev) => !prev)}>
-              <IoSearchOutline className='text-3xl' />
+              <IoSearchOutline className='text-3xl hidden md:flex' />
             </button>
-            <CiHeart className='text-3xl' />
+            <CiHeart className='text-3xl hidden md:flex' />
             <div
               className='relative'
               onMouseEnter={
@@ -159,7 +187,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className='absolute h-full right-0 w-[380px] bg-white shadow-lg py-4 px-8 z-50'>
+            className='absolute h-full right-0 w-[330px]  md:w-[380px] bg-white shadow-lg py-4 px-8 z-50'>
             <div className='flex justify-between items-center'>
               <h2 className='text-2xl font-bold border-b py-4'>
                 Shopping Cart
@@ -207,7 +235,7 @@ const Navbar = () => {
             ) : (
               <p className='text-xs text-gray-500'>Cart is empty</p>
             )}
-            <div className=' w-full absolute bottom-4 right-0  '>
+            <div className=' w-full absolute bottom-4 right-0 py-2 '>
               <div className='flex text-black w-full gap-2 items-center  mt-2 w-full py-8 px-6 border-b'>
                 <div className='flex gap-1 items-center w-1/2'>Subtotal</div>
                 <div className='flex gap-1 items-center w-1/2 text-yellow-700'>
@@ -216,23 +244,69 @@ const Navbar = () => {
               </div>
               <div className='flex text-white w-full gap-2 items-center justify-evenly mt-2 w-full py-4'>
                 <div className='flex gap-1 items-center'>
-                  <button className='text-black border border-black rounded-full px-4 py-2 hover:bg-black hover:text-white  w-full'>
+                  <button className='text-black border border-black rounded-full px-4 py-2 hover:bg-black hover:text-white  md:w-full'>
                     <Link href='/cart'>Cart</Link>
                   </button>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <button className='text-black border border-black rounded-full px-4 py-2  hover:bg-black hover:text-white  w-full'>
+                  <button className='text-black border border-black rounded-full px-4 py-2  hover:bg-black hover:text-white md:w-full'>
                     <Link href='/cart'>Compare</Link>
                   </button>
                 </div>
                 <div className='flex gap-1 items-center'>
-                  <button className='text-black border border-black rounded-full px-4 py-2  hover:bg-black hover:text-white  w-full'>
+                  <button className='text-black border border-black rounded-full px-4 py-2  hover:bg-black hover:text-white  md:w-full'>
                     <Link href='/cart'>checkout</Link>
                   </button>
                 </div>
               </div>
             </div>
           </motion.div>
+        </div>
+      )}
+
+      {isMoblieMenuOpen && (
+        <div id='mobile-menu'>
+          <div className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-b'>
+            {["Home", "Products", "About", "Contact", "OutofStock"].map(
+              (name) => {
+                const path =
+                  name.toLowerCase() === "home"
+                    ? "/"
+                    : `/${name.toLowerCase()}`;
+                return (
+                  <Link
+                    key={name}
+                    href={path}
+                    className={`${
+                      pathname === path ? "bg-black text-white" : ""
+                    } text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
+                    {name}
+                  </Link>
+                );
+              }
+            )}
+          </div>
+          <div className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'>
+            <div className='px-3 py-2 flex  gap-4 items-center justify-between '>
+              Log In <FaUserMinus className='text-2xl' />
+            </div>
+          </div>
+          <div
+            className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'
+            onClick={() => setIsSearchOpen((prev) => !prev)}>
+            <div className='px-3 py-2 flex  gap-4 items-center justify-between '>
+              Search
+              <IoSearchOutline className='text-2xl' />
+            </div>
+          </div>
+          <div
+            className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'
+            onClick={() => setIsSearchOpen((prev) => !prev)}>
+            <div className='px-3 py-2 flex  gap-4 items-center justify-between '>
+              Wish List
+              <CiHeart className='text-2xl ' />
+            </div>
+          </div>
         </div>
       )}
     </nav>
