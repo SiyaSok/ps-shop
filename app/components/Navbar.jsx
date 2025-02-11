@@ -13,15 +13,21 @@ import { IoSearchOutline } from "react-icons/io5";
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { useCart } from "@/app/Context/CartContext"; // Adjust the path accordingly
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaUserMinus } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Navbar = () => {
+  const { data: session } = useSession();
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const searchInputRef = useRef();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [deletingItemId, setDeletingItemId] = useState(false);
   const [isMoblieMenuOpen, setIsMoblieMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setisProfileMenuOpen] = useState(false);
+
+  const [providers, setProviders] = useState(null);
 
   const [error, setError] = useState("");
 
@@ -32,6 +38,15 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchCart();
+  }, []);
+
+  useEffect(() => {
+    const setAuthProvider = async () => {
+      const res = await getProviders();
+
+      setProviders(res);
+    };
+    setAuthProvider();
   }, []);
 
   const handleSearchChange = (event) => {
@@ -108,6 +123,8 @@ const Navbar = () => {
                     href={path}
                     className={`${
                       pathname === path ? "bg-black text-white" : ""
+                    }  ${
+                      path === "/outofstock" && !session ? "hidden" : ""
                     } text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
                     {name}
                   </Link>
@@ -128,13 +145,52 @@ const Navbar = () => {
             )}
           </div>
           <div className='flex items-center gap-4 '>
-            <FaUserMinus className='text-3xl hidden md:flex' />
+            {!session && (
+              <div className='hidden md:block md:ml-6'>
+                <div className='flex items-center'>
+                  {providers &&
+                    Object.values(providers).map((provider, index) => (
+                      <button
+                        key={index}
+                        onClick={() => signIn(provider.id)}
+                        className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>
+                        {/* <i className='fa-brands fa-google text-white mr-2'></i> */}
+                        <FaGoogle className='text=white mr-2' />
+                        <span>Login or Register</span>
+                      </button>
+                    ))}
+                </div>
+              </div>
+            )}
             <button
               type='button'
               onClick={() => setIsSearchOpen((prev) => !prev)}>
               <IoSearchOutline className='text-3xl hidden md:flex' />
             </button>
-            <CiHeart className='text-3xl hidden md:flex' />
+            {/* <CiHeart className={`text-3xl  ${!session ? "hidden" : "flex"} `} /> */}
+
+            <div className='mt-1'>
+              {session && (
+                <button
+                  type='button'
+                  className=''
+                  id='user-menu-button'
+                  aria-expanded='false'
+                  aria-haspopup='true'
+                  onClick={() => setisProfileMenuOpen((prev) => !prev)}>
+                  <span className='absolute -inset-1.5'></span>
+                  <span className='sr-only'>Open user menu</span>
+                  <Image
+                    className='h-8 w-8 rounded-full'
+                    src={`${session?.user?.image}`}
+                    alt='profileDefault'
+                    height={50}
+                    width={50}
+                  />
+                </button>
+              )}
+            </div>
+
             <div
               className='relative'
               onMouseEnter={
@@ -279,17 +335,14 @@ const Navbar = () => {
                     href={path}
                     className={`${
                       pathname === path ? "bg-black text-white" : ""
-                    } text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
+                    } ${
+                      path === "/outofstock" && !session ? "hidden" : ""
+                    }  text-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
                     {name}
                   </Link>
                 );
               }
             )}
-          </div>
-          <div className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'>
-            <div className='px-3 py-2 flex  gap-4 items-center justify-between '>
-              Log In <FaUserMinus className='text-2xl' />
-            </div>
           </div>
           <div
             className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'
@@ -300,13 +353,72 @@ const Navbar = () => {
             </div>
           </div>
           <div
-            className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'
+            className={`space-y-1 px-2 pb-3 pt-2 flex flex-col border-top ${
+              !session ? "hidden" : ""
+            } `}
             onClick={() => setIsSearchOpen((prev) => !prev)}>
             <div className='px-3 py-2 flex  gap-4 items-center justify-between '>
               Wish List
               <CiHeart className='text-2xl ' />
             </div>
           </div>
+          <div className='space-y-1 px-2 pb-3 pt-2 flex flex-col border-top'>
+            {!session && (
+              <div className='md:ml-6'>
+                <div className='flex items-center'>
+                  {providers &&
+                    Object.values(providers).map((provider, index) => (
+                      <button
+                        key={index}
+                        onClick={() => signIn(provider.id)}
+                        className='flex items-center text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>
+                        {/* <i className='fa-brands fa-google text-white mr-2'></i> */}
+                        <FaGoogle className='text=white mr-2' />
+                        <span>Login or Register</span>
+                      </button>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {isProfileMenuOpen && (
+        <div
+          id='user-menu'
+          className=' absolute right-[172px] z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+          role='menu'
+          aria-orientation='vertical'
+          aria-labelledby='user-menu-button'
+          tabIndex='-1'>
+          <Link
+            href='/profile'
+            className='block px-4 py-2 text-sm text-gray-700'
+            role='menuitem'
+            tabIndex='-1'
+            id='user-menu-item-0'>
+            Your Profile
+          </Link>
+          <Link
+            href='/properties/saved'
+            className='block px-4 py-2 text-sm text-gray-700'
+            role='menuitem'
+            tabIndex='-1'
+            id='user-menu-item-2'>
+            Saved Properties
+          </Link>
+          <button
+            className='block px-4 py-2 text-sm text-gray-700'
+            onClick={() => {
+              setisProfileMenuOpen(false);
+              signOut();
+            }}
+            role='menuitem'
+            tabIndex='-1'
+            id='user-menu-item-2'>
+            Sign Out
+          </button>
         </div>
       )}
     </nav>

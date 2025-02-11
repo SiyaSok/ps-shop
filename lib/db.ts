@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const MONGODB_URI: string = process.env.MONGODB_URI as string;
 
-const connect = async () => {
+const connectDB = async () => {
   const connectionState = mongoose.connection.readyState;
 
   if (connectionState === 1) {
@@ -28,4 +28,4 @@ const connect = async () => {
   }
 };
 
-export default connect;
+export default connectDB;

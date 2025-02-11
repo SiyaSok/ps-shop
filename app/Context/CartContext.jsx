@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const [currentSession, SetcurrentSession] = useState("");
   const userId = "679d0854631f81325321d575";
 
   useEffect(() => {
@@ -136,6 +136,8 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  console.log({ currentSession });
+
   return (
     <CartContext.Provider
       value={{
@@ -152,6 +154,7 @@ export const CartProvider = ({ children }) => {
         userId,
         isRegister,
         loading,
+        SetcurrentSession,
       }}>
       {children}
     </CartContext.Provider>

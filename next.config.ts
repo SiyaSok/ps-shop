@@ -15,18 +15,15 @@ const nextConfig = {
         pathname: "/**", // Match all paths
       },
       {
-        protocol: "https", // or 'http' if needed
-        hostname: "thefoschini.vtexassets.com",
-        port: "", // leave empty if no port specified
-        pathname: "/**", // match all paths under this hostname
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "**",
       },
-      // Add more domains here if needed
-      // {
-      //   protocol: 'https',
-      //   hostname: 'another-image-domain.com',
-      //   port: '',
-      //   pathname: '/**',
-      // },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "**",
+      },
     ],
   },
 };

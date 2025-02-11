@@ -9,7 +9,7 @@ import { TbSwitchHorizontal } from "react-icons/tb";
 import { CiHeart } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 
-const Product = ({ products, markAsOutofStock }) => {
+const Products = ({ products, markAsOutofStock }) => {
   const { addToCart } = useCart();
   const [loadingProduct, setLoadingProduct] = useState(false);
 
@@ -118,4 +118,4 @@ const Product = ({ products, markAsOutofStock }) => {
   );
 };
 
-export default Product;
+export default Products;
