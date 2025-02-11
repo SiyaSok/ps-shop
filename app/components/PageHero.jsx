@@ -29,7 +29,9 @@ const PageHero = () => {
     pathname.startsWith("/") ? pathname.substring(1) : pathname
   );
 
-  return (
+  const ProdPagePath = pathname.split("/");
+
+  return ProdPagePath.length === 2 ? (
     <section
       className='relative h-[200px] md:h-[400px] bg-cover bg-center '
       style={{ backgroundImage: `url(${CoverIamge.src})` }}>
@@ -49,6 +51,8 @@ const PageHero = () => {
         </div>
       </div>
     </section>
+  ) : (
+    ""
   );
 };
 
