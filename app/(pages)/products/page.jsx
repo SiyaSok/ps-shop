@@ -2,6 +2,7 @@
 "use client";
 import PageHero from "@/app/components/PageHero";
 import ProductCards from "@/app/components/ProductCards";
+import ProductPageFooter from "@/app/components/ProductPageFooter";
 import SortFilter from "@/app/components/SortFilter";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -83,6 +84,7 @@ const Page = () => {
         filteredCategory={filteredCategory}
       />
       <ProductCards products={simplifiedProducts} />
+      <ProductPageFooter />
     </>
   );
 };

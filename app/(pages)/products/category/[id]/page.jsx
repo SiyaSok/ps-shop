@@ -5,6 +5,7 @@ import Product from "@/lib/modals/products";
 import { Types } from "mongoose";
 import ProductCards from "@/app/components/ProductCards";
 import PageHero from "@/app/components/PageHero";
+import ProductPageFooter from "@/app/components/ProductPageFooter";
 
 const Page = async ({ params }) => {
   await connectDB();
@@ -31,6 +32,7 @@ const Page = async ({ params }) => {
       <div className='mt-4'>
         <ProductCards products={JSON.parse(JSON.stringify(products))} />
       </div>
+      <ProductPageFooter />
     </div>
   );
 };

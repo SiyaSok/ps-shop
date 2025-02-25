@@ -7,7 +7,9 @@ const ProductDetails = ({ prod }) => {
       {/* Added width for larger screens */}
       <div>
         <h1 className='text-4xl font-semibold'>{prod.title}</h1>
-        <p className='text-3xl text-gray-600 mt-4'>R {prod.price}</p>
+        <p className='text-3xl text-gray-600 mt-4'>
+          R {parseInt(prod.price).toFixed(2)}
+        </p>
         <p className='text-lg mt-4'>{prod.description}</p>
       </div>
       <div>
