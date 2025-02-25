@@ -18,6 +18,11 @@ export default function Home() {
       <Range />
       <HomeProducts />
       <OurProducts />
+      <Heading
+        text='#FuniroFurniture'
+        subtext='Share your setup with'
+        styles='py-8 text-center'
+      />
       <JustHero />
     </div>
   );
