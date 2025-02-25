@@ -1,6 +1,6 @@
 /** @format */
 "use client";
-import Product from "@/app/components/Products";
+import ProductCards from "@/app/components/ProductCards";
 import SortFilter from "@/app/components/SortFilter";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -108,7 +108,7 @@ const Page = () => {
         limit={limit}
         productsTotal={productsTotal}
       />
-      <Product
+      <ProductCards
         products={simplifiedProducts}
         markAsOutofStock={markAsOutofStock}
       />

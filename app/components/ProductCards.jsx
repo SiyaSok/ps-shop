@@ -9,7 +9,7 @@ import { TbSwitchHorizontal } from "react-icons/tb";
 import { CiHeart } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 
-const Products = ({ products, markAsOutofStock }) => {
+const ProductCards = ({ products, markAsOutofStock }) => {
   const { addToCart } = useCart();
   const [loadingProduct, setLoadingProduct] = useState(false);
 
@@ -32,8 +32,8 @@ const Products = ({ products, markAsOutofStock }) => {
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
         {products.map((product) => (
           <Link key={product._id} href={`/products/${product._id}`}>
-            <div className='border bg-gray-200 shadow-md relative group overflow-hidden'>
-              <div className='relative aspect-[4/5] w-full overflow-hidden'>
+            <div className='border shadow-md relative group overflow-hidden'>
+              <div className='relative aspect-[4/5] w-full  overflow-hidden'>
                 <Image
                   src={product.image}
                   alt={product.title}
@@ -43,24 +43,25 @@ const Products = ({ products, markAsOutofStock }) => {
                   className='transition-opacity duration-300 group-hover:opacity-70'
                 />
               </div>
-
-              <div className='p-4'>
-                <h2 className='text-2xl font-semibold mb-1 text-gray-800 '>
-                  {product.title}
-                </h2>
-              </div>
-              <div className='p-4'>
-                <p className='text-gray-600 mb-2 line-clamp-3'>
-                  {product.description}
-                </p>
-                <p className='text-lg font-semibold text-gray-800'>
-                  R{product.price.toFixed(2)}
-                </p>
-                {product.outOfStock && (
-                  <div className='absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs w-14 h-14 flex items-center text-center'>
-                    No Stock
-                  </div>
-                )}
+              <div className='h-64 border-t'>
+                <div className='p-4 '>
+                  <h2 className='text-2xl font-semibold mb-1 text-gray-800 '>
+                    {product.title}
+                  </h2>
+                </div>
+                <div className='p-4'>
+                  <p className='text-gray-600 mb-2 line-clamp-3'>
+                    {product.description}
+                  </p>
+                  <p className='text-lg font-semibold text-gray-800'>
+                    R{parseInt(product.price).toFixed(2)}
+                  </p>
+                  {product.outOfStock && (
+                    <div className='absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs w-14 h-14 flex items-center text-center'>
+                      No Stock
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className='absolute inset-0 flex flex-col gap-4 items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100 bg-black bg-opacity-50'>
@@ -116,4 +117,4 @@ const Products = ({ products, markAsOutofStock }) => {
   );
 };
 
-export default Products;
+export default ProductCards;

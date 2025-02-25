@@ -1,10 +1,8 @@
 /** @format */
-
-"use client";
-
 import Heading from "./components/Heading";
 import Hero from "./components/Hero";
-import OurProducts from "./components/OurProducts";
+// import OurProducts from "./components/OurProducts";
+import HomeProducts from "@/app/components/HomeProducts";
 import Range from "./components/Range";
 
 export default function Home() {
@@ -17,8 +15,8 @@ export default function Home() {
         styles='py-8 text-center'
       />
       <Range />
-      <Heading text='Our Products' subtext='' styles='py-8 text-center' />
-      <OurProducts />
+      {/* <Heading text='Our Products' subtext='' styles='py-8 text-center' /> */}
+      <HomeProducts />
     </div>
   );
 }

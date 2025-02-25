@@ -35,7 +35,7 @@
     "app/page.jsx",
     "app/components/SortFilter.jsx",
     "app/components/Range.jsx",
-    "app/components/Products.jsx",
+    "app/components/ProductCards.jsx",
     "app/components/PageHero.jsx",
     "app/components/OurProducts.jsx",
     "app/components/Hero.jsx",

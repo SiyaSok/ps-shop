@@ -3,7 +3,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import Product from "@/app/components/Products";
+import ProductCards from "@/app/components/ProductCards";
 
 function ProductList() {
   const searchParams = useSearchParams();
@@ -32,7 +32,7 @@ function ProductList() {
     return <div>No products found.</div>;
   }
 
-  return <Product products={products} />;
+  return <ProductCards products={products} />;
 }
 
 export default function Page() {

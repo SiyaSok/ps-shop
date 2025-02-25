@@ -1,6 +1,7 @@
 /** @format */
 "use client";
-import Product from "@/app/components/Products";
+import PageHero from "@/app/components/PageHero";
+import ProductCards from "@/app/components/ProductCards";
 import SortFilter from "@/app/components/SortFilter";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -71,6 +72,7 @@ const Page = () => {
 
   return (
     <>
+      <PageHero />
       <SortFilter
         onLimitChange={handleLimitChange}
         onSortChange={handleSortChange}
@@ -80,7 +82,7 @@ const Page = () => {
         productsTotal={productsTotal}
         filteredCategory={filteredCategory}
       />
-      <Product products={simplifiedProducts} />
+      <ProductCards products={simplifiedProducts} />
     </>
   );
 };

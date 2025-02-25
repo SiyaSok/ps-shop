@@ -1,64 +1,38 @@
 /** @format */
+import connectDB from "@/lib/db";
+import Category from "@/lib/modals/category";
+import Product from "@/lib/modals/products";
+import { Types } from "mongoose";
+import ProductCards from "@/app/components/ProductCards";
+import PageHero from "@/app/components/PageHero";
 
-// /** @format */
+const Page = async ({ params }) => {
+  await connectDB();
 
-// import axios from "axios";
-// import Product from "@/app/components/Products";
+  const category = await Category.findById(params.id);
+  if (!category) {
+    return new (JSON.stringify({ message: "Category not found" }),
+    {
+      status: 404,
+    })();
+  }
 
-// interface Product {
-//   _id: string;
-//   title: string;
-//   description: string;
-//   price: number;
-//   image: string;
-//   outOfStock: boolean;
-//   category?: { _id: string; name: string };
-// }
-// interface PageProps {
-//   params: { id: string };
-// }
-// async function getProducts(id: string): Promise<Product[]> {
-//   try {
-//     const response = await axios.get<Product[]>(
-//       `http://localhost:3000/api/products/category/${id}`
-//     );
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching products:", error);
-//     return [];
-//   }
-// }
+  const filter = {
+    category: new Types.ObjectId(params.id),
+  };
 
-// function simplifyProduct(product: Product) {
-//   return {
-//     _id: product._id,
-//     title: product.title,
-//     description: product.description,
-//     price: product.price,
-//     image: product.image,
-//     outOfStock: product.outOfStock,
-//     category: product.category
-//       ? { _id: product.category._id, name: product.category.name }
-//       : null,
-//   };
-// }
-// export default async function shppage({ params }: PageProps) {
-//   const { id } = params;
+  const products = await Product.find(filter)
+    .populate("category", "title")
+    .lean();
 
-//   try {
-//     const products = await getProducts(id);
-//     const simplifiedProducts = products.map(simplifyProduct);
-
-//     return <Product products={simplifiedProducts} />;
-//   } catch (error) {
-//     console.error(error);
-
-//     return <div>Error loading product.</div>;
-//   }
-// }
-
-const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      <PageHero catName={products[0].category.title} />
+      <div className='mt-4'>
+        <ProductCards products={JSON.parse(JSON.stringify(products))} />
+      </div>
+    </div>
+  );
 };
 
-export default page;
+export default Page;

@@ -1,33 +1,41 @@
 /** @format */
-// import connectDB from "@/lib/db";
-// import Product from "@/lib/modals/products";
-// import Products from "./Products";
 
-const ProductPageProducts = async () => {
-  // await connectDB();
+import connectDB from "@/lib/db";
+import Category from "@/lib/modals/category";
+import Product from "@/lib/modals/products";
+import { Types } from "mongoose";
+import Heading from "./Heading";
+import Link from "next/link";
+import ProductCards from "./ProductCards";
 
-  // const recentProduct = await Product.find({})
-  //   .sort({ createdAt: -1 }) // Corrected typo: createAT to createdAt
-  //   .limit(4)
-  //   .lean();
+const ProductPageProducts = async ({ categoryId }) => {
+  if (!categoryId || !Types.ObjectId.isValid(categoryId)) {
+    return "Invalid or missing category ID";
+  }
 
-  // // More efficient simplification using projection in the query
-  // const simplifiedProducts = recentProduct.map((product) => ({
-  //   _id: product._id,
-  //   title: product.title,
-  //   description: product.description,
-  //   price: product.price,
-  //   image: product.image,
-  //   outOfStock: product.outOfStock,
-  //   category: product.category
-  //     ? { _id: product.category._id, name: product.category.name }
-  //     : null,
-  // }));
+  await connectDB;
+
+  const category = await Category.findById(categoryId);
+  if (!category) {
+    return "Category not found";
+  }
+  const filter = {
+    category: new Types.ObjectId(categoryId),
+  };
+
+  const products = await Product.find(filter).limit(4).lean();
 
   return (
     <>
-      Products
-      {/* <Products products={simplifiedProducts} /> */}
+      <Heading text={"Related Products"} styles={"text-center mt-10 pt-10"} />
+      <ProductCards products={JSON.parse(JSON.stringify(products))} />
+      <div className='mt-10 text-center '>
+        <Link
+          href={`/products/category/${categoryId}`}
+          className=' border border-black text-black font-bold py-4 px-4 rounded hover:bg-black hover:text-white'>
+          View All Products
+        </Link>
+      </div>
     </>
   );
 };

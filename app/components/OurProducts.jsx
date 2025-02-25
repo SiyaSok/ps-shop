@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Product from "./Products";
+import Product from "./ProductCards";
 
 const OurProducts = () => {
   const [products, setProducts] = useState([]);
@@ -26,6 +26,7 @@ const OurProducts = () => {
     async function fetchData() {
       try {
         const response = await axios.get("/api/products?limit=8");
+        console.log(response);
         setProducts(response.data);
       } catch (err) {
         setError(err.message); // Set the error message
