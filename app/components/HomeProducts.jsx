@@ -19,7 +19,7 @@ const HomeProducts = async () => {
     <section className='mt-10 text-white bg-black px-2 pt-6 pb-10'>
       <div className='container-xl lg:container mx-auto'>
         <h2 className='text-3xl font-bold text-white mb-6 text-center'>
-          Featured Properties
+          Featured Products
         </h2>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           {products.map((product) => (

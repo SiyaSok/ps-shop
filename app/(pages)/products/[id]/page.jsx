@@ -1,8 +1,6 @@
 /** @format */
 
 import connectDB from "@/lib/db";
-// import { ConvertToSerializableObj } from "@/lib/ConvertToSerializableObject";
-import { simplifyProduct } from "@/lib/simplifiedProducts";
 import Product from "@/lib/modals/products";
 import ProductPageProducts from "@/app/components/ProductPageProducts";
 import Breadcrumb from "@/app/components/Breadcrumb";
@@ -13,17 +11,14 @@ const page = async ({ params }) => {
   await connectDB();
   const prod = await Product.findById(params.id).lean();
 
-  // const product = ConvertToSerializableObj(prod);
-  const product = simplifyProduct(prod);
-
   return (
     <>
-      <Breadcrumb prod={product} />
+      <Breadcrumb prod={JSON.parse(JSON.stringify(prod))} />
       <div className='flex flex-col md:flex-row gap-8 max-w-6xl mx-auto p-6'>
-        <ProductImages prod={product} />
-        <ProductDetails prod={product} />
+        <ProductImages prod={JSON.parse(JSON.stringify(prod))} />
+        <ProductDetails prod={JSON.parse(JSON.stringify(prod))} />
       </div>
-      <ProductPageProducts categoryId={prod.category._id} />
+      <ProductPageProducts categoryId={prod.category} />
     </>
   );
 };
