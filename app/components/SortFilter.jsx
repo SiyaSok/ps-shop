@@ -73,7 +73,13 @@ const SortFilter = ({ productsTotal }) => {
   const handleCategoryChange = (e) => {
     const newCategory = e.target.value;
     setSelectedCategory(newCategory);
-    const query = `?category=${newCategory}&limit=${limit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
+    let query;
+    if (newCategory) {
+      query = `?category=${newCategory}&limit=${limit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
+    } else {
+      query = `?limit=${limit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
+    }
+
     router.push(`/products${query}`);
   };
 
