@@ -10,7 +10,7 @@ import { CiHeart } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 
 const ProductCards = ({ products, markAsOutofStock }) => {
-  const { addToCart } = useCart();
+  const { addToCart, grid } = useCart();
   const [loadingProduct, setLoadingProduct] = useState(false);
 
   const pathname = usePathname();
@@ -29,7 +29,8 @@ const ProductCards = ({ products, markAsOutofStock }) => {
 
   return (
     <div className='container mx-auto p-4'>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-${grid} gap-8`}>
         {products.map((product) => (
           <Link key={product._id} href={`/products/${product._id}`}>
             <div className='border shadow-md relative group overflow-hidden'>

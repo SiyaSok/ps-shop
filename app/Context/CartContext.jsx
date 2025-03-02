@@ -16,6 +16,7 @@ export const CartProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const userId = "679d0854631f81325321d575";
+  const [grid, setGrid] = useState(4);
 
   useEffect(() => {
     fetchCart();
@@ -150,6 +151,8 @@ export const CartProvider = ({ children }) => {
         userId,
         isRegister,
         loading,
+        grid,
+        setGrid,
       }}>
       {children}
     </CartContext.Provider>
