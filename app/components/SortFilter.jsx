@@ -10,7 +10,8 @@ import { useCart } from "../Context/CartContext";
 
 const SortFilter = ({ productsTotal }) => {
   const [categories, setCategories] = useState([]);
-  const [sortCategory, setSortCategory] = useState("");
+  const [sortCategory, setSortCategory] = useState("createdAt");
+  const [category, setCategory] = useState("createdAt");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortOrder, setSortOrder] = useState(1);
   const [limit, setLimit] = useState(12);
@@ -37,7 +38,7 @@ const SortFilter = ({ productsTotal }) => {
     setLimit(newLimit);
     let query;
     if (selectedCategory) {
-      query = `?category=${selectedCategory}&limit=${limit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
+      query = `?category=${selectedCategory}&limit=${newLimit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
     } else {
       query = `?limit=${newLimit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
     }
@@ -48,17 +49,22 @@ const SortFilter = ({ productsTotal }) => {
   const handleSortByChange = (e) => {
     const newSortBy = e.target.value;
     let query;
-    setSortCategory(newSortBy);
     if (selectedCategory) {
       setSortOrder(1);
+      setSortCategory(newSortBy);
+      setCategory(newSortBy);
       query = `?category=${selectedCategory}&limit=${limit}&sortBy=${sortCategory}&sortOrder=${sortOrder}`;
     } else {
       if (newSortBy === "highToLow") {
         setSortOrder(-1);
+        setSortCategory("price");
+        setCategory("highToLow");
         query = `?limit=${limit}&sortBy=${"price"}&sortOrder=${"-1"}`;
       } else {
         setSortOrder(1);
-        query = `?limit=${limit}&sortBy=${newSortBy}&sortOrder=${sortOrder}`;
+        setSortCategory(newSortBy);
+        setCategory(newSortBy);
+        query = `?limit=${limit}&sortBy=${newSortBy}&sortOrder=${"1"}`;
       }
     }
     router.push(`/products${query}`);
@@ -99,7 +105,6 @@ const SortFilter = ({ productsTotal }) => {
               className='p-2 w-14 bg-transparent '
               value={grid}
               onChange={handleGridChange}>
-              <option value=''>Grid</option>
               <option value='3'>3</option>
               <option value='4'>4</option>
               <option value='5'>5</option>
@@ -137,7 +142,7 @@ const SortFilter = ({ productsTotal }) => {
             <label className='block text-sm font-medium'>Sort By:</label>
             <select
               className='w-34 p-2 border rounded'
-              value={sortCategory}
+              value={category}
               onChange={handleSortByChange}>
               <option value=''>Sort By</option>
               <option value='createdAt'>Newest</option>
