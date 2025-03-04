@@ -3,26 +3,38 @@
 
 import Image from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { useState } from "react";
 import addToCart from "@/app/actions/addTocart";
 import deleteItem from "@/app/actions/deleteItem";
 import { toast } from "react-toastify";
 
 const MainCartCard = ({ product, cart }) => {
+  const [loading, setLoading] = useState(false);
+
   const handleAddToCart = async (plus) => {
     if (!product?.productId) return;
+    setLoading(true);
     await addToCart(product.productId, 1, plus);
+    setLoading(false);
     toast.success("Cart Updated Successfully");
   };
 
   const handleDelete = async () => {
     if (!product?.productId) return;
+    setLoading(true);
     await deleteItem(product.productId, cart[0]._id);
+    setLoading(false);
     toast.info("Item removed from cart");
-    // Implement delete logic here
   };
 
   return (
-    <div className='flex items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
+    <div className='relative flex items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
+      {loading && (
+        <div className='absolute inset-0 bg-gray-200 bg-opacity-50 flex justify-center items-center'>
+          <div className='w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin'></div>
+        </div>
+      )}
+
       {/* Product Image and Title */}
       <div className='flex w-2/5'>
         <div className='w-20'>
