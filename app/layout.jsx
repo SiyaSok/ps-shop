@@ -6,6 +6,7 @@ import Navbar from "@/app/components/Navbar";
 import { CartProvider } from "./Context/CartContext";
 import { Poppins } from "next/font/google";
 import AuthProvider from "@/app/components/AuthProvider";
+import { ToastContainer } from "react-toastify";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
             <Navbar />
             {children}
           </CartProvider>
+          <ToastContainer />
           <Footer />
         </body>
       </html>

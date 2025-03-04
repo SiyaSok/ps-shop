@@ -3,8 +3,8 @@
 import { useState } from "react";
 import MainCartCard from "@/app/components/MainCartCard";
 import CartOrderSummary from "@/app/components/CartOrderSummary";
-const MainCart = ({ products }) => {
-  const [cart, setCart] = useState([]);
+const MainCart = ({ products, cart }) => {
+  // const [cart, setCart] = useState([]);
 
   // const removeFromCart = (productToRemove) => {
   //   setCart(cart.filter((product) => product._id !== productToRemove._id));
@@ -79,6 +79,7 @@ const MainCart = ({ products }) => {
               key={product._id}
               product={product}
               addToCart={addToCart}
+              cart={cart}
             />
           ))}
 

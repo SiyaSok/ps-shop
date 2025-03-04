@@ -11,7 +11,7 @@ import Product from "@/lib/modals/products";
 import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 
-async function addToCart(productId, quantity) {
+async function addToCart(productId, quantity, plus) {
   await connectDB();
 
   const sessionUser = await getSessionUser();
@@ -20,10 +20,6 @@ async function addToCart(productId, quantity) {
   }
 
   const userId = sessionUser.userId;
-
-  console.log(sessionUser.userId);
-
-  console.log(productId, quantity);
 
   // Validate the user ID.
   if (!userId || !Types.ObjectId.isValid(userId)) {
@@ -43,16 +39,18 @@ async function addToCart(productId, quantity) {
   // Find the user's cart or create a new one if it doesn't exist.
   let cart = await Cart.findOne({ user: userId });
 
+  // console.log({ cart });
+
   if (!cart) {
     cart = new Cart({ user: userId, items: [], totalPrice: 0 });
   }
 
   // Find the product to get its details.
   const product = await Product.findById(productId);
+
   if (!product) {
     return { error: "Product not found" }, { status: 404 };
   }
-  console.log({ product });
 
   // Check if the product is already in the cart.
   const existingItem = cart.items.find(
@@ -61,7 +59,11 @@ async function addToCart(productId, quantity) {
 
   // If the product exists, update the quantity.
   if (existingItem) {
-    existingItem.quantity += quantity;
+    if (plus) {
+      existingItem.quantity += quantity;
+    } else {
+      existingItem.quantity -= quantity;
+    }
   } else {
     // If the product doesn't exist, add it to the cart.
     cart.items.push({

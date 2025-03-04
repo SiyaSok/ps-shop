@@ -63,8 +63,6 @@ export const POST = async (request) => {
     const { userId, items } = await request.json();
     const { productId, quantity } = items; // Destructure productId and quantity from items
 
-    console.log({ items });
-
     // Validate the user ID.
     if (!userId || !Types.ObjectId.isValid(userId)) {
       return NextResponse.json(

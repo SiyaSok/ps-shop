@@ -9,9 +9,9 @@ export default async function ShopPage() {
   await connectDB();
 
   const sessionUser = await getSessionUser();
-  if (!sessionUser || !sessionUser.userId) {
-    throw new Error("user ID is required");
-  }
+  // if (!sessionUser || !sessionUser.userId) {
+  //   throw new Error("user ID is required");
+  // }
 
   const cart = await Cart.find({ user: sessionUser.userId }).lean();
 
@@ -20,7 +20,10 @@ export default async function ShopPage() {
   }
   return (
     <>
-      <MainCart products={JSON.parse(JSON.stringify(cart[0].items))} />
+      <MainCart
+        products={JSON.parse(JSON.stringify(cart[0].items))}
+        cart={JSON.parse(JSON.stringify(cart))}
+      />
       <ProductPageFooter />
     </>
   );
