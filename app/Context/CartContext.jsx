@@ -4,10 +4,13 @@
 
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const { data: session } = useSession();
+
   const [cartId, setCartId] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
@@ -15,17 +18,18 @@ export const CartProvider = ({ children }) => {
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const userId = "679d0854631f81325321d575";
+  const userId = session?.user?.id;
   const [grid, setGrid] = useState(4);
 
   useEffect(() => {
     fetchCart();
-  }, []);
+  }, [userId]);
 
   const fetchCart = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/cart?userId=${userId}`);
+      if (!userId) return null;
+      const response = await axios.get(`/api/cart?userId=${session?.user?.id}`);
 
       if (response.data && response.data.items) {
         setCartItems(response.data.items);

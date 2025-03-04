@@ -41,7 +41,7 @@
     "app/components/Hero.jsx",
     "app/components/Heading.jsx",
     "app/components/Footer.jsx",
-    "app/components/Cart.jsx",
+    "app/components/MainCart.jsx",
     "app/components/Navbar.jsx",
     "app/Context/CartContext.jsx",
     "app/Context/CartContext.jsx",
