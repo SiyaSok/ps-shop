@@ -11,13 +11,11 @@ import { Types } from "mongoose";
 const Page = async ({ searchParams }) => {
   await connectDB();
 
-  const {
-    page = 1,
-    limit = 12,
-    category,
-    sortBy = "createdAt",
-    sortOrder,
-  } = searchParams;
+  const { category, sortBy = "createdAt", sortOrder } = await searchParams;
+
+  const limit = searchParams?.limit || 10;
+  const page = searchParams?.page || 1;
+
   const filter = {
     category: new Types.ObjectId(category),
   };

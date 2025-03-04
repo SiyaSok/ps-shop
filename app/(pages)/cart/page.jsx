@@ -4,6 +4,7 @@ import connectDB from "@/lib/db";
 import { getSessionUser } from "@/lib/getSessionUser";
 import MainCart from "@/app/components/MainCart";
 import Cart from "@/lib/modals/cart";
+import ProductPageFooter from "@/app/components/ProductPageFooter";
 export default async function ShopPage() {
   await connectDB();
 
@@ -20,6 +21,7 @@ export default async function ShopPage() {
   return (
     <>
       <MainCart products={JSON.parse(JSON.stringify(cart[0].items))} />
+      <ProductPageFooter />
     </>
   );
 }

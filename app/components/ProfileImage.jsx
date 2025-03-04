@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-const ProfileImage = (setisProfileMenuOpen) => {
+const ProfileImage = ({ setisProfileMenuOpen }) => {
   const { data: session } = useSession();
   return (
     <div className='mt-1'>
