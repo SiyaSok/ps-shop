@@ -87,14 +87,14 @@ const SortFilter = ({ productsTotal }) => {
     setGrid(parseInt(e.target.value, 10));
   };
   return (
-    <div className='bg-orange-100 p-4'>
-      <div className='container mx-auto flex flex-col md:flex-row items-center gap-4 md:justify-between'>
+    <div className='bg-black p-4'>
+      <div className='container mx-auto flex flex-col text-white md:flex-row items-center gap-4 md:justify-between'>
         {/* Sorting */}
         <div className='flex flex-wrap items-center gap-4 w-full md:w-auto justify-center'>
           <div className='flex items-center'>
             <BsFilterSquare className='mr-2 text-2xl md:text-4xl' />
             <select
-              className='p-2 w-24 bg-transparent '
+              className='p-2 w-24  rounded text-black'
               value={selectedCategory}
               onChange={handleCategoryChange}>
               <option value=''>Filter</option>
@@ -105,10 +105,10 @@ const SortFilter = ({ productsTotal }) => {
               ))}
             </select>
           </div>
-          <div className='flex items-center'>
+          <div className='flex gap-2 items-center'>
             <FaGripHorizontal className='text-xl' />
             <select
-              className='p-2 w-14 bg-transparent '
+              className='p-2 w-14 rounded  text-black '
               value={grid}
               onChange={handleGridChange}>
               <option value='3'>3</option>
@@ -131,7 +131,7 @@ const SortFilter = ({ productsTotal }) => {
           <div className='flex items-center gap-2'>
             <label className='block text-sm font-medium'>Show:</label>
             <select
-              className='p-2 border rounded'
+              className='p-2 rounded text-black'
               value={limit}
               onChange={handleLimitChange}>
               <option value=''>Show</option>
@@ -147,7 +147,7 @@ const SortFilter = ({ productsTotal }) => {
           <div className='flex items-center gap-2'>
             <label className='block text-sm font-medium'>Sort By:</label>
             <select
-              className='w-34 p-2 border rounded'
+              className='w-34 p-2 border rounded text-black '
               value={category}
               onChange={handleSortByChange}>
               <option value=''>Sort By</option>

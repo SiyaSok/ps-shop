@@ -83,7 +83,9 @@ const CartSlider = ({ setIsCartOpen }) => {
           <div className='flex text-white w-full gap-2 items-center justify-evenly mt-2 w-full py-4'>
             <div className='flex gap-1 items-center'>
               <button className='text-black border border-black rounded-full px-4 py-2 hover:bg-black hover:text-white  md:w-full'>
-                <Link href='/cart'>Cart</Link>
+                <Link href='/cart' onClick={() => setIsCartOpen(false)}>
+                  Cart
+                </Link>
               </button>
             </div>
             <div className='flex gap-1 items-center'>

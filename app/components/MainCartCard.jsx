@@ -28,7 +28,7 @@ const MainCartCard = ({ product, cart }) => {
   };
 
   return (
-    <div className='relative flex items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
+    <div className='relative flex items-center hover:bg-gray-100 -mx-8 px-4 py-3 '>
       {loading && (
         <div className='absolute inset-0 bg-gray-200 bg-opacity-50 flex justify-center items-center'>
           <div className='w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin'></div>
@@ -96,7 +96,7 @@ const MainCartCard = ({ product, cart }) => {
       <span
         className='text-center w-1/5 font-semibold text-sm cursor-pointer'
         onClick={handleDelete}>
-        <RiDeleteBinLine className='text-2xl text-red-600 hover:text-red-800 transition-colors duration-200' />
+        <RiDeleteBinLine className='text-2xl text-yellow-700 hover:text-black transition-colors duration-200' />
       </span>
     </div>
   );
